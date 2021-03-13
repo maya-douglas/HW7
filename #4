@@ -32,7 +32,6 @@ class Graph():
                 if (self.adjacency_matrix[u][j] > 0 and mstSet[j] == False and minInt[j] > self.adjacency_matrix[u][j]):
                     minInt[j] = self.adjacency_matrix[i][j]
                     a[j] = u
-        print(minInt)
         return sum(minInt)
     
 G = Graph([ [0,10,11,33,60],
