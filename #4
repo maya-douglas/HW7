@@ -1,0 +1,43 @@
+import sys 
+class Graph():
+    def __init__(self, adjacency_matrix):
+        self.v = len(adjacency_matrix)
+        self.adjacency_matrix = adjacency_matrix
+       
+    def minKey(self, weight, mstSet):
+        minInt = sys.maxsize
+        minIdx = 0
+        for i in range(self.v):
+            if(weight[i] < minInt and mstSet[i] == False):
+                minInt = weight[i]
+                minIdx = i
+        return minIdx
+    
+
+    
+    def Prim(self):
+        minInt = [sys.maxsize] * self.v
+        minInt[0] = 0
+        a = [0] * self.v
+        a[0] = 0
+        mstSet = [False] * self.v
+        mstSet[0] = True
+        for i in range(self.v):
+            u = self.minKey(minInt,mstSet)
+            mstSet[u] = True
+        for i in range(self.v):
+            u = self.minKey(minInt,mstSet)
+            mstSet[u] = True
+            for j in range(self.v):
+                if (self.adjacency_matrix[u][j] > 0 and mstSet[j] == False and minInt[j] > self.adjacency_matrix[u][j]):
+                    minInt[j] = self.adjacency_matrix[i][j]
+                    a[j] = u
+        print(minInt)
+        return sum(minInt)
+    
+G = Graph([ [0,10,11,33,60],
+           [10,0,22,14,57],
+           [11,22,0,12,17],
+           [33,14,12,0,9],
+           [60,57,17,9,0]])
+assert G.Prim() == 42
